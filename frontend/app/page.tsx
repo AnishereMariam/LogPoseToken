@@ -394,7 +394,7 @@ const { toast } = useToast();
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <a href="/arbitrage.html" target="_blank" rel="noopener noreferrer">
+                  <a href="/price-island.html" target="_blank" rel="noopener noreferrer">
                     <Button variant="outline" size="lg">
                       <Zap className="w-4 h-4 mr-2" />
                       Price Island
