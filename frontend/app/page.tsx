@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { ethers } from "ethers"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -58,6 +59,7 @@ declare global {
 }
 
 export default function LogPoseIDO() {
+  const router = useRouter();
   // Fetch IDO progress before wallet connection
 useEffect(() => {
   const fetchProgress = async () => {
@@ -380,7 +382,7 @@ const { toast } = useToast();
                     IDO Now Live
                   </Badge>
                   <h1 className="text-4xl md:text-6xl font-bold text-balance leading-tight text-white drop-shadow-lg">
-                    Navigate the <span className="text-blue-300">Crypto Seas</span> with LogPose
+                    Navigate the <span className="text-blue-300">Crypto Sea</span> with LogPose
                   </h1>
                   <p className="text-xl text-blue-100 text-pretty max-w-2xl drop-shadow-md">
                     The first decentralized price aggregator that guides traders through volatile markets. Join our
@@ -389,31 +391,13 @@ const { toast } = useToast();
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button
-                    className="bg-primary hover:bg-primary/90"
-                    size="lg"
-                    onClick={connected ? (approved ? buyTokens : approvePUSD) : connectWallet}
-                    disabled={loading}
-                  >
-                    {loading ? (
-                      "Processing..."
-                    ) : connected ? (
-                      approved ? (
-                        <>
-                          <Compass className="w-5 h-5 mr-2" />
-                          Purchase LPT Tokens
-                        </>
-                      ) : (
-                        "Approve PUSD"
-                      )
-                    ) : (
-                      <>
-                        <Lock className="w-4 h-4 mr-2" />
-                        Connect Wallet
-                      </>
-                    )}
-                  </Button>
-                  <a href="/whitepaper.md" target="_blank" rel="noopener noreferrer">
+                  <a href="/arbitrage.html" target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline" size="lg">
+                      <Zap className="w-4 h-4 mr-2" />
+                      Price Island
+                    </Button>
+                  </a>
+                  <a href="/whitepaper.html" target="_blank" rel="noopener noreferrer">
                     <Button variant="outline" size="lg">
                       <BarChart3 className="w-5 h-5 mr-2" />
                       View Whitepaper
@@ -738,6 +722,14 @@ const { toast } = useToast();
                       <span className="text-muted-foreground">Network:</span>
                       <span className="font-bold">Sepolia Testnet</span>
                     </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">IDO Contract:</span>
+                      <span className="font-bold break-all">0x5Bf2B9EA607C27b0F7D6F0EcffeAf00082B7529f</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Token Contract:</span>
+                      <span className="font-bold break-all">0x95Ce6Fd9cF58dEBb27A5CEbAaeEc038AED8bf5bf</span>
+                    </div>
                   </CardContent>
                 </Card>
 
@@ -1033,7 +1025,7 @@ const { toast } = useToast();
             </div>
 
             <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
-              <p>&copy; 2024 LogPose Token. All rights reserved. Set sail responsibly! 🏴‍☠️</p>
+              <p>&copy; 2025 LogPose Token. All rights reserved. Set sail responsibly! 🏴‍☠️</p>
             </div>
           </div>
         </footer>
