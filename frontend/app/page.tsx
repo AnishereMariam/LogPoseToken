@@ -113,7 +113,10 @@ const { toast } = useToast();
   const [activeRoadmapTab, setActiveRoadmapTab] = useState("q1")
 
   // Calculate progress percentage
-  const progressPercentage = totalTokens > 0 ? Number((tokensSold * BigInt(100)) / totalTokens) : 40 // Default 40% for demo
+  // Use BigInt division and convert to number for display
+  const progressPercentage = Number(totalTokens) > 0
+  ? ((Number(tokensSold) * 100) / Number(totalTokens))
+  : 0; // Default 0% for demo
 
   // Connect Wallet Function
   const connectWallet = async () => {
