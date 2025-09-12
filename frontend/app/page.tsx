@@ -421,7 +421,7 @@ const { toast } = useToast();
                         ₦{Number((Number(ethers.formatEther(tokensSold)) * 15).toFixed(0)).toLocaleString()}
                       </div>
                       <div className="text-1xl font text-primary">{" ("}
-                        {Intl.NumberFormat("en-US", { style: "decimal", maximumFractionDigits: 0 }).format(Number(ethers.formatEther(tokensSold)))} PUSD
+                        {Intl.NumberFormat("en-US", { style: "decimal", maximumFractionDigits: 0 }).format((Number(ethers.formatEther(tokensSold)) * 0.01))} PUSD
                         {")"}
                       </div>
                       <div className="text-xs text-muted-foreground">Raised</div>
