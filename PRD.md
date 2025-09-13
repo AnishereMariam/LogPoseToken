@@ -1,4 +1,4 @@
-# LogPose: Product Requirement Document (Aligned with Current Implementation)
+# LogPose: Product Requirement Document
 
 ## 1. Overview
 **Product Name:** LogPose
