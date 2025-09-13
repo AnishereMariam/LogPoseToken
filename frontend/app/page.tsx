@@ -492,7 +492,7 @@ const { toast } = useToast();
                 <div className="bg-card/90 backdrop-blur-sm border border-border rounded-lg p-6 space-y-4">
                   <div className="flex justify-between items-center">
                     <span className="text-sm font-medium">IDO Progress</span>
-                    <span className="text-sm text-muted-foreground">{progressPercentage.toFixed(1)}% Complete</span>
+                    <span className="text-sm text-muted-foreground">{progressPercentage.toFixed(2)}% Complete</span>
                   </div>
                   <Progress value={progressPercentage} className="h-2" />
                   <div className="grid grid-cols-3 gap-4 text-center">
@@ -513,7 +513,7 @@ const { toast } = useToast();
                     </div>
                     <div>
                       <div className="text-1xl font-bold text-accent">₦800M</div>
-                      <div className="text-1xl font text-foreground">(500,000 PUSD)</div>
+                      <div className="text-1xl font text-foreground">(~500,000 PUSD)</div>
                       <div className="text-xs text-muted-foreground">Target</div>
                     </div>
                   </div>
