@@ -11,6 +11,8 @@
 - Deploy Solidity smart contracts for LPT token and IDO sale.
 - Achieve successful IDO launch and user participation.
 
+
+# Technical Architecture
 ## 3. Functional Requirements
 ### Frontend (Next.js/React)
 - **IDO Interface:** Users can purchase LPT with PUSD (1 LPT = 0.01 PUSD) via MetaMask wallet connection.
