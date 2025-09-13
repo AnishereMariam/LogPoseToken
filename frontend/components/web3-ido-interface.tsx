@@ -4,14 +4,13 @@ import LogPoseIDOArtifact from "../../artifacts/contracts/LogPoseIDO.sol/LogPose
 import LPTArtifact from "../../artifacts/contracts/LogPoseToken.sol/LogPoseToken.json"
 import { useState, useEffect } from "react"
 import { ethers } from "ethers"
-import { Button } from "../components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card"
-import { Input } from "../components/ui/input"
-import { Badge } from "../components/ui/badge"
-import { Progress } from "../components/ui/progress"
-import { useToast } from "../components/ui/use-toast"
+import { Button } from "./components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card"
+import { Input } from "./components/ui/input"
+import { Badge } from "./components/ui/badge"
+import { Progress } from "./components/ui/progress"
+import { useToast } from "./components/ui/use-toast"
 import { Navigation, Compass, TrendingUp, Shield, Users, Zap, ArrowRight, Star, Globe, Lock, Coins } from "lucide-react"
-import RoadmapTabs from "./RoadmapTabs"
 
 // Contract Configuration
 const IDO_ADDRESS = "0x5Bf2B9EA607C27b0F7D6F0EcffeAf00082B7529f"
@@ -39,7 +38,7 @@ export default function LogPoseIDO() {
   const [connected, setConnected] = useState(false)
   const [approved, setApproved] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null)
+  const [provider, setProvider] = useState<ethers.Provider | null>(null)
   const [signer, setSigner] = useState<ethers.Signer | null>(null)
   const [idoContract, setIdoContract] = useState<any>(null)
   const [pusdContract, setPusdContract] = useState<any>(null)
@@ -52,7 +51,7 @@ export default function LogPoseIDO() {
   const [lptAmount, setLptAmount] = useState("")
 
   // Calculate progress percentage
-  const progressPercentage = totalTokens > BigInt(0) ? Number(tokensSold * BigInt(100) / totalTokens) : 0
+  const progressPercentage = totalTokens > 0 ? Number((tokensSold * BigInt(100)) / totalTokens) : 0
 
   // Connect Wallet Function
   const connectWallet = async () => {
@@ -62,7 +61,7 @@ export default function LogPoseIDO() {
         const provider = new ethers.BrowserProvider(window.ethereum)
         const network = await provider.getNetwork()
 
-        if (Number(network.chainId) !== 11155111) {
+        if (network.chainId !== 11155111n) {
           toast({
             title: "Wrong Network",
             description: "Please switch to Sepolia Testnet",
@@ -185,11 +184,11 @@ export default function LogPoseIDO() {
           setTokensSold(sold)
           setTotalTokens(total)
         } catch (error) {
-          // eslint-disable-next-line no-console
           console.error("Error fetching IDO data:", error)
         }
       }
     }
+
     fetchData()
     const interval = setInterval(fetchData, 30000) // Update every 30 seconds
     return () => clearInterval(interval)
@@ -605,7 +604,163 @@ export default function LogPoseIDO() {
           </div>
 
           {/* Tabs implementation with manual state for tab selection */}
-          <RoadmapTabs />
+          {(() => {
+            const [activeTab, setActiveTab] = useState("q1")
+            return (
+              <div className="max-w-4xl mx-auto">
+                <div className="grid w-full grid-cols-4 mb-4">
+                  <button
+                    className={`py-2 px-4 ${activeTab === "q1" ? "bg-primary text-primary-foreground" : "bg-card text-foreground"}`}
+                    onClick={() => setActiveTab("q1")}
+                  >
+                    Q1 2024
+                  </button>
+                  <button
+                    className={`py-2 px-4 ${activeTab === "q2" ? "bg-primary text-primary-foreground" : "bg-card text-foreground"}`}
+                    onClick={() => setActiveTab("q2")}
+                  >
+                    Q2 2024
+                  </button>
+                  <button
+                    className={`py-2 px-4 ${activeTab === "q3" ? "bg-primary text-primary-foreground" : "bg-card text-foreground"}`}
+                    onClick={() => setActiveTab("q3")}
+                  >
+                    Q3 2024
+                  </button>
+                  <button
+                    className={`py-2 px-4 ${activeTab === "q4" ? "bg-primary text-primary-foreground" : "bg-card text-foreground"}`}
+                    onClick={() => setActiveTab("q4")}
+                  >
+                    Q4 2024
+                  </button>
+                </div>
+
+                {activeTab === "q1" && (
+                  <div className="mt-8">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center">
+                          <Navigation className="w-5 h-5 mr-2 text-primary" />
+                          East Blue - Foundation
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-accent rounded-full"></div>
+                          <span>✅ IDO Launch on Sepolia Testnet</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-accent rounded-full"></div>
+                          <span>✅ Core Price Aggregation MVP</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                          <span>🔄 Community Building & Staking Launch</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                          <span>📋 Integration with 5 Major Exchanges</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                )}
+
+                {activeTab === "q2" && (
+                  <div className="mt-8">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center">
+                          <TrendingUp className="w-5 h-5 mr-2 text-primary" />
+                          Alabasta - Growth
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                          <span>📋 AI-Powered Arbitrage Alerts</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                          <span>📋 Mobile App Beta Release</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                          <span>📋 Governance Portal Launch</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                          <span>📋 Partnership with DeFi Protocols</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                )}
+
+                {activeTab === "q3" && (
+                  <div className="mt-8">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center">
+                          <Globe className="w-5 h-5 mr-2 text-primary" />
+                          Sky Island - Innovation
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                          <span>📋 Mainnet Migration</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                          <span>📋 Advanced Analytics Dashboard</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                          <span>📋 API for Institutional Clients</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                          <span>📋 Cross-Chain Price Feeds</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                )}
+
+                {activeTab === "q4" && (
+                  <div className="mt-8">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center">
+                          <Star className="w-5 h-5 mr-2 text-primary" />
+                          New World - Expansion
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                          <span>📋 Global Exchange Partnerships</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                          <span>📋 Advanced Trading Tools</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                          <span>📋 Enterprise Solutions</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                          <span>📋 One Piece of the Crypto Puzzle Complete! 🏴‍☠️</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                )}
+              </div>
+            )
+          })()}
         </div>
       </section>
 

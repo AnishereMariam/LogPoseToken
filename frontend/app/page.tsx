@@ -59,6 +59,8 @@ declare global {
 }
 
 export default function LogPoseIDO() {
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const router = useRouter();
   // Fetch IDO progress before wallet connection
@@ -341,7 +343,7 @@ const { toast } = useToast();
         </DialogContent>
       </Dialog>
 
-      <div className="min-h-screen bg-background relative">
+  <div className={`min-h-screen bg-background relative ${theme === 'dark' ? 'dark' : 'light'}`}> 
         <div className="fixed inset-0 z-0">
           <div
             className="absolute inset-0 bg-cover bg-center bg-fixed opacity-20"
@@ -378,13 +380,28 @@ const { toast } = useToast();
                 <a href="#roadmap" className="text-muted-foreground hover:text-foreground transition-colors">
                   Roadmap
                 </a>
-                <Button variant="outline" size="sm" onClick={connectWallet} disabled={loading}>
-                  <Navigation className="w-4 h-4 mr-2" />
+                {/* Connect Wallet Button - styled for dark mode */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={connectWallet}
+                  disabled={loading}
+                  className={`transition-colors duration-200 ${theme === 'dark' ? 'bg-[#222] border border-white text-white shadow-lg' : ''}`}
+                >
+                  <Navigation className={`w-4 h-4 mr-2 ${theme === 'dark' ? 'text-white' : ''}`} />
                   {connected
                     ? `${account.slice(0, 6)}...${account.slice(-4)}`
                     : typeof window !== "undefined" && typeof window.ethereum === "undefined"
                       ? "Install MetaMask"
                       : "Connect Wallet"}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={toggleTheme}
+                  className={`ml-2 ${theme === 'dark' ? 'text-white' : ''}`}
+                >
+                  {theme === 'dark' ? '🌙 Dark' : '☀️ Light'}
                 </Button>
               </div>
               {/* Mobile Navigation */}
@@ -423,19 +440,41 @@ const { toast } = useToast();
                       <Button
                         variant="outline"
                         size="sm"
-                        className="mx-4 my-2"
+                        className="mx-4 my-2 dark:text-white dark:border-white border"
                         onClick={() => {
                           setMobileNavOpen(false);
                           connectWallet();
                         }}
                         disabled={loading}
                       >
-                        <Navigation className="w-4 h-4 mr-2" />
+                        <Navigation className="w-4 h-4 mr-2 dark:text-white dark:border-white border" />
                         {connected
                           ? `${account.slice(0, 6)}...${account.slice(-4)}`
                           : typeof window !== "undefined" && typeof window.ethereum === "undefined"
                             ? "Install MetaMask"
                             : "Connect Wallet"}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className={`mx-4 my-2 ${theme === 'dark' ? 'text-white' : ''}`}
+                        onClick={() => {
+                          setMobileNavOpen(false);
+                          toggleTheme();
+                        }}
+                      >
+                        {theme === 'dark' ? '🌙 Dark' : '☀️ Light'}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="mx-4 my-2"
+                        onClick={() => {
+                          setMobileNavOpen(false);
+                          toggleTheme();
+                        }}
+                      >
+                        {theme === 'dark' ? '🌙 Dark' : '☀️ Light'}
                       </Button>
                     </div>
                   </div>
@@ -475,13 +514,21 @@ const { toast } = useToast();
 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a href="/price-island.html" target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="lg">
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className={theme === 'dark' ? 'bg-card/80 border-primary text-white hover:bg-card/95' : ''}
+                    >
                       <Zap className="w-4 h-4 mr-2" />
                       Price Island
                     </Button>
                   </a>
                   <a href="/whitepaper.html" target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="lg">
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className={theme === 'dark' ? 'bg-card/80 border-primary text-white hover:bg-card/95' : ''}
+                    >
                       <BarChart3 className="w-5 h-5 mr-2" />
                       View Whitepaper
                     </Button>
