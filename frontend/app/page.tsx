@@ -441,7 +441,7 @@ const { toast } = useToast();
                   <Progress value={progressPercentage} className="h-2" />
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
-                      <div className="text-2xl font-bold text-primary">
+                      <div className="text-1xl font-bold text-primary">
                         ₦{Number((Number(ethers.formatEther(tokensSold)) * 15).toFixed(0)).toLocaleString()}
                       </div>
                       <div className="text-1xl font text-primary">{" ("}
@@ -456,7 +456,7 @@ const { toast } = useToast();
                       <div className="text-xs text-muted-foreground">Per LPT</div>
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-accent">₦800M</div>
+                      <div className="text-1xl font-bold text-accent">₦800M</div>
                       <div className="text-1xl font text-foreground">(500,000 PUSD)</div>
                       <div className="text-xs text-muted-foreground">Target</div>
                     </div>
