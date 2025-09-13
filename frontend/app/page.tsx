@@ -59,6 +59,7 @@ declare global {
 }
 
 export default function LogPoseIDO() {
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const router = useRouter();
   // Fetch IDO progress before wallet connection
 useEffect(() => {
@@ -366,6 +367,7 @@ const { toast } = useToast();
                 <span className="text-xl font-bold text-foreground">LogPose</span>
                 <Badge className="ml-2">IDO Live</Badge>
               </div>
+              {/* Desktop Navigation */}
               <div className="hidden md:flex items-center space-x-6">
                 <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors">
                   About
@@ -384,6 +386,60 @@ const { toast } = useToast();
                       ? "Install MetaMask"
                       : "Connect Wallet"}
                 </Button>
+              </div>
+              {/* Mobile Navigation */}
+              <div className="md:hidden flex items-center">
+                <button
+                  className="p-2 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                  onClick={() => setMobileNavOpen(!mobileNavOpen)}
+                  aria-label="Open navigation menu"
+                >
+                  <Navigation className="w-6 h-6 text-primary" />
+                </button>
+                {mobileNavOpen && (
+                  <div className="absolute top-16 right-4 bg-card border border-border rounded-lg shadow-lg z-50 w-48">
+                    <div className="flex flex-col py-2">
+                      <a
+                        href="#about"
+                        className="px-4 py-2 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors rounded"
+                        onClick={() => setMobileNavOpen(false)}
+                      >
+                        About
+                      </a>
+                      <a
+                        href="#tokenomics"
+                        className="px-4 py-2 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors rounded"
+                        onClick={() => setMobileNavOpen(false)}
+                      >
+                        Tokenomics
+                      </a>
+                      <a
+                        href="#roadmap"
+                        className="px-4 py-2 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors rounded"
+                        onClick={() => setMobileNavOpen(false)}
+                      >
+                        Roadmap
+                      </a>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="mx-4 my-2"
+                        onClick={() => {
+                          setMobileNavOpen(false);
+                          connectWallet();
+                        }}
+                        disabled={loading}
+                      >
+                        <Navigation className="w-4 h-4 mr-2" />
+                        {connected
+                          ? `${account.slice(0, 6)}...${account.slice(-4)}`
+                          : typeof window !== "undefined" && typeof window.ethereum === "undefined"
+                            ? "Install MetaMask"
+                            : "Connect Wallet"}
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
