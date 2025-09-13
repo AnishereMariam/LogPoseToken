@@ -4,12 +4,12 @@ import LogPoseIDOArtifact from "../../artifacts/contracts/LogPoseIDO.sol/LogPose
 import LPTArtifact from "../../artifacts/contracts/LogPoseToken.sol/LogPoseToken.json"
 import { useState, useEffect } from "react"
 import { ethers } from "ethers"
-import { Button } from "./components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card"
-import { Input } from "./components/ui/input"
-import { Badge } from "./components/ui/badge"
-import { Progress } from "./components/ui/progress"
-import { useToast } from "./components/ui/use-toast"
+import { Button } from "./ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
+import { Input } from "./ui/input"
+import { Badge } from "./ui/badge"
+import { Progress } from "./ui/progress"
+import { useToast } from "./ui/use-toast"
 import { Navigation, Compass, TrendingUp, Shield, Users, Zap, ArrowRight, Star, Globe, Lock, Coins } from "lucide-react"
 
 // Contract Configuration
@@ -61,7 +61,7 @@ export default function LogPoseIDO() {
         const provider = new ethers.BrowserProvider(window.ethereum)
         const network = await provider.getNetwork()
 
-        if (network.chainId !== 11155111n) {
+        if (network.chainId !== BigInt(11155111)) {
           toast({
             title: "Wrong Network",
             description: "Please switch to Sepolia Testnet",

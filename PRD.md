@@ -1,323 +1,134 @@
-# LogPose Token - Product Requirements Document
+# LogPose: Product Requirement Document (Aligned with Current Implementation)
 
-## 1. Project Overview 🎯
+## 1. Overview
+**Product Name:** LogPose
+**Purpose:** Decentralized IDO sale platform for LogPose Token (LPT) on Sepolia Testnet. Users can purchase LPT using PUSD via wallet connection (MetaMask). 
+**Target Audience:** Crypto traders, DeFi users, early adopters.
+**Version:** MVP for Sepolia Testnet, Q4 2025.
 
-### 1.1 Vision & Mission
-**Vision:**
-To empower crypto traders globally with a decentralized, transparent platform that navigates the volatile cryptocurrency market, providing real-time price tracking and arbitrage opportunities.
+## 2. Objectives
+- Deliver a responsive Next.js (React) frontend for IDO sale and wallet integration.
+- Deploy Solidity smart contracts for LPT token and IDO sale.
+- Achieve successful IDO launch and user participation.
 
-**Mission:**
-To develop a community-governed price aggregator leveraging blockchain technology to ensure accurate, tamper-proof data from multiple exchanges, fostering trust and efficiency in trading decisions.
+## 3. Functional Requirements
+### Frontend (Next.js/React)
+- **IDO Interface:** Users can purchase LPT with PUSD (1 LPT = 0.01 PUSD) via MetaMask wallet connection.
+- **Wallet Connection:** MetaMask integration for buying and approving PUSD.
+- **Progress Tracking:** Display IDO progress (tokens sold, total tokens, percentage).
+- **Contract Addresses:** Show LPT and IDO contract addresses in the UI.
+- **Mobile Responsive:** Navigation and UI adapt to mobile devices.
+- **Theme:** Dark/light mode toggle, with blue/cyan accents.
+- **Notifications:** Modal and toast notifications for transaction status and errors.
 
-### 1.2 Target Audience
-- 📈 **Retail Traders:** Cost-effective trading insights seekers
-- 🤖 **Algorithmic Traders:** Bots and systems needing accurate price feeds
-- �‍💻 **DeFi Developers:** Smart contract builders requiring reliable data
-- 🏢 **Institutional Investors:** Organizations seeking transparent market analytics
+### Smart Contracts (Solidity, Sepolia Testnet)
+- **LPT Token:** ERC-20 token with 500M total supply, 25% (125M) for IDO.
+  - Functions: transfer, approve.
+  - Contract Address: 0x95Ce6Fd9cF58dEBb27A5CEbAaeEc038AED8bf5bf
+- **IDO Contract:** Handles LPT purchases and fund collection.
+  - Address: 0x5Bf2B9EA607C27b0F7D6F0EcffeAf00082B7529f
+- **MockPUSD:** ERC-20 stablecoin for test purchases.
 
-### 1.3 Unique Value Proposition
-Unlike centralized aggregators (CoinMarketCap, CoinGecko), LogPose offers:
-- 🔒 Decentralized price verification via LPT staking
-- 💰 10-20% savings on trades through reliable arbitrage alerts
-- ⚡ Real-time, on-chain verified insights
-- 🛡️ Tamper-proof oracle feed for DeFi integration
+### Not Yet Implemented (Future Work)
+- Price tracker for multiple exchanges
+- Arbitrage alerts
+- Staking, governance, and price oracle
+- Node.js backend/API aggregation
+- Advanced analytics and premium features
 
-### 1.4 Products and Services
-1. **Core Platform**
-   - Real-time price tracking across global exchanges
-   - Exchange comparison tools
-   - Arbitrage alert systems
-   - Mobile-friendly interface
+## 4. Non-Functional Requirements
+- **Performance:** Frontend loads <2s.
+- **Security:** Uses OpenZeppelin templates for contracts; wallet-based authentication.
+- **Reliability:** UI handles errors and network issues gracefully.
+- **Compliance:** UI includes crypto risk disclaimer.
 
-2. **Advanced Features**
-   - AI-driven predictive analytics
-   - On-chain data verification
-   - Community staking system
-   - API access for developers
+## 5. Success Metrics
+- Successful IDO sale and token distribution.
+- Wallet connection and transaction flows work for all users.
+- Responsive UI across devices and themes.
 
-## 2. Business Model & Tokenomics 💼
-
-### 2.1 Revenue Generation
-- **Premium Subscriptions**
-  - Monthly fees: $10-50
-  - LPT staking for advanced features
-  - Features: Real-time alerts, API feeds, AI analytics
-
-- **Additional Revenue Streams**
-  - Advertising (free tier)
-  - Affiliate commissions (0.1-1%)
-  - Token staking fees and rewards
-
-### 2.2 Token Economics
-```solidity
-Token Name: LogPose Token (LPT)
-Total Supply: 500,000,000 LPT
-IDO Allocation: 125,000,000 LPT (25%)
-Initial Price: ₦6.4 ($0.004)
+## 6. Directory Structure (Current)
+```
+LogPoseToken/
+├── contracts/        # Solidity smart contracts (LPT, IDO, MockPUSD)
+├── frontend/         # Next.js frontend (IDO page, wallet logic, UI)
+├── test/             # Hardhat tests for contracts
+├── scripts/          # Deployment and verification scripts
+├── README.md         # Project overview
+├── PRD.md            # Product Requirement Document
 ```
 
-**Distribution:**
-- 25% IDO Sale
-- 20% Team (2-year vesting)
-- 25% Treasury
-- 15% Staking Rewards
-- 10% Marketing
-- 5% Reserve
-
-### 2.3 Valuation & Fundraising
-- Pre-IDO Valuation: $10M
-- Fundraising Target: ₦800M (~$500K USD)
-
-**Fund Allocation:**
-- 50% Development (₦400M)
-- 25% Marketing (₦200M)
-- 25% Initial Liquidity (₦200M)
-
-## 3. Smart Contract Architecture 📝
-
-### 3.1 LogPoseToken (LPT)
-```solidity
-// Core Features
-Total Supply: 500M tokens
-Decimals: 18
-```
-
-**Key Features:**
-- Owner Functions:
-  - Mint tokens
-  - Burn tokens
-  - Transfer ownership
-- Standard ERC20 Functions:
-  - Transfer
-  - Approve
-  - TransferFrom
-  - BalanceOf
-
-### 2.2 LogPoseIDO Contract
-**Key Features:**
-- Purchase tokens using PUSD
-- Configurable token sale rate
-- Track tokens sold
-- Withdraw mechanisms for both LPT and PUSD
-
-**Security Features:**
-- ✅ Ownable contract pattern
-- 🔒 Sale limits and checks
-- 💱 Safe token transfer handling
-
-**Events:**
-```solidity
-TokensPurchased(address indexed buyer, uint256 amountPUSD, uint256 amountLPT)
-RateUpdated(uint256 oldRate, uint256 newRate)
-TokensWithdrawn(address indexed to, uint256 amount)
-PaymentsWithdrawn(address indexed to, uint256 amount)
-```
-
-## 3. Frontend Interface 🎨
-
-### 3.1 Core Components
-
-#### 1. Navigation
-- 🔌 Wallet connection
-- 📑 Links to Tokenomics and Roadmap
-- 📱 Mobile-responsive design
-
-#### 2. Token Purchase Interface
-- 💵 PUSD input field
-- 🔄 Real-time LPT calculation
-- 🛒 Purchase button
-- ⚡ Transaction status updates
-
-#### 3. Sale Progress
-- 📊 Total tokens for sale
-- 📈 Tokens sold tracker
-- 🔋 Visual progress bar
-- 💱 Current sale rate display
-
-### 3.2 Additional Sections
-
-#### Features Showcase
-- 🛡️ Tamper-Proof Data
-- 🌍 Global Exchange Coverage
-- ⚡ Lightning Fast Updates
-- 👥 Community Governance
-
-#### Roadmap
-| Quarter | Phase | Focus |
-|---------|-------|-------|
-| Q1 2024 | Foundation | Core Infrastructure |
-| Q2 2024 | Growth | Platform Expansion |
-| Q3 2024 | Innovation | New Features |
-| Q4 2024 | Expansion | Global Reach |
-
-## 4. Technical Specifications 🔧
-
-### 4.1 Technology Stack
-```
-Smart Contracts: Solidity 0.8.30
-Development: Hardhat
-Frontend: Next.js + TypeScript + Tailwind CSS
-Web3: ethers.js
-UI: Custom component library
-```
-
-### 4.2 Smart Contract Integration
-- Provider: MetaMask/Web3 Provider
-- Networks: 
-  - Initial: Sepolia Testnet
-  - Planned: Mainnet
-- Contract Interactions:
-  ```typescript
-  - Wallet connection
-  - Token approvals
-  - Purchase transactions
-  - Balance checks
-  ```
-
-## 5. Features and Requirements ✨
-
-### 5.1 Phase 1 - Core Features
-- [x] ERC20 token deployment
-- [x] IDO contract deployment
-- [x] Basic frontend with purchase functionality
-- [x] Wallet integration
-- [x] Transaction handling
-
-### 5.2 Phase 2 - Enhanced Features
-- [ ] Price aggregation system
-- [ ] Real-time market data feeds
-- [ ] Mobile app beta
-- [ ] Governance portal
-- [ ] DeFi protocol integrations
-
-### 5.3 Phase 3 - Advanced Features
-- [ ] Advanced analytics dashboard
-- [ ] API for institutional clients
-- [ ] Cross-chain price feeds
-- [ ] Enterprise solutions
-- [ ] Global exchange partnerships
-
-## 6. Security Requirements 🔒
-
-### 6.1 Smart Contract Security
-```
-✓ Comprehensive testing suite
-✓ Access control mechanisms
-✓ Safe math operations
-✓ Emergency pause functionality
-✓ Secure token handling
-```
-
-### 6.2 Frontend Security
-```
-✓ Secure wallet connections
-✓ Transaction confirmation dialogs
-✓ Error handling and feedback
-✓ Rate limiting
-✓ Input validation
-```
-
-## 7. Performance Requirements ⚡
-
-### 7.1 Smart Contracts
-- Maximum gas efficiency
-- Optimized storage usage
-- Fast transaction confirmation
-- Reliable token transfers
-
-### 7.2 Frontend
-```
-Initial load: < 3s
-Updates: Real-time
-Design: Mobile-responsive
-Compatibility: Cross-browser
-```
-
-## 8. Deployment and Maintenance 🚀
-
-### 8.1 Deployment Process
-1. Smart contract deployment and verification
-2. Frontend deployment on Vercel
-3. Contract address configuration
-4. Initial token distribution
-5. IDO launch preparation
-
-### 8.2 Maintenance
-```
-🔄 Regular security updates
-📊 Performance monitoring
-🛠️ Bug fixes and improvements
-👥 Community feedback integration
-```
-
-## 9. Success Metrics 📊
-
-### 9.1 Technical Metrics
-- Smart contract reliability (uptime)
-- Transaction success rate
-- Average response time
-- Gas optimization levels
-
-### 9.2 Business Metrics
-- Token sale participation
-- User adoption rate
-- Community growth
-- Platform usage statistics
-
-## 10. Community Building & Growth 🌱
-
-### 10.1 Community Engagement
-**Motto: "Verified by the community, for the community"**
-
-- **Reward Programs**
-  - Early user airdrops
-  - Validator incentives
-  - Referral programs
-  - Staking APY boosts
-
-- **Engagement Features**
-  ```
-  - Gamified leaderboards
-  - Community challenges
-  - Validator rankings
-  - Trading competitions
-  ```
-
-### 10.2 Growth Strategy
-- Target: 100K monthly active users in year 1
-- Breakeven: $500K annual revenue
-- Long-term goal: $5M+ revenue by year 3
-
-### 10.3 Sustainability Measures
-```
-- Token utility enhancement
-- Premium feature expansion
-- Strategic partnerships
-- Market penetration goals (5%)
-```
-
-## 11. Future Considerations 🔮
-
-### 11.1 Technical Scalability
-```
-- Layer 2 integration
-- Cross-chain expansion
-- Infrastructure upgrades
-- Performance optimization
-```
-
-### 11.2 Business Expansion
-```
-- Advanced trading tools
-- Institutional services
-- Mobile applications
-- API ecosystem expansion
-- Global exchange partnerships
-- DeFi protocol integrations
-```
+## 7. Notes
+- Features like price tracking, arbitrage, staking, governance, and backend are planned for future releases.
+- For full PRD history, see previous document versions.
 
 ---
 
-> This document is maintained by the LogPose Token team and should be reviewed and updated regularly as the project evolves.
+## Documentation and AI-Aided Development
 
-Last updated: September 9, 2025
+### 1. Product Requirement Document (PRD)
+See above for the aligned PRD section.
+
+### 2. Test Cases
+#### Unit Tests (Smart Contracts)
+- Validate LPT token and IDO contract functionality using Hardhat and Chai.
+- Example:
+  - Mint initial supply
+  - Transfer tokens
+  - Purchase LPT with PUSD
+  - Prevent over-purchase
+  - Check raised funds
+- Test files: `test/LogPoseToken.test.ts`, `test/LogPoseIDO.test.ts`
+
+#### Integration Tests (Frontend + Smart Contracts)
+- Ensure wallet connection, IDO purchase, and UI updates work together.
+- Simulate user flows and transaction status notifications.
+
+### 3. Prompts Used with AI Agents
+
+#### Smart Contract Agent Prompts
+- Identity: Solidity Developer
+- Task: Write ERC-20 token and IDO sale contracts
+- Constraints: OpenZeppelin templates, Sepolia Testnet, secure coding
+
+#### My Prompt
+- "You are a Blockchain Engineer. Your task is to deploy an IDO website for LogPose Token. Write an ERC-20 smart contract with a total supply of 500,000,000 tokens. In addition, create an IDO smart contract that allows users to buy LogPose Tokens using PUSD as the payment token."
+
+#### Frontend Agent Prompts
+- Identity: React/Next.js Developer
+- Task: Build IDO purchase UI, wallet connection, progress display, modal notifications
+- Constraints: TypeScript, mobile responsive, dark/light mode, contract addresses
+
+#### My Prompt
+You are a React/Next.js Developer, who is heavily interested in the One Piece Anime Series. Your task is to build the IDO purchase UI for the LogPose Token. While taking into consideration, the intentional reference of Log Pose from One Piece:
+- Create a purchase interface for the IDO.
+- Implement MetaMask wallet connection.
+
+
+### 4. Process Report
+#### How Prompts Were Structured
+- Defined agent role, task, and constraints for each prompt.
+- Used project specifics (addresses, pricing) to guide AI.
+- Iterated with follow-up prompts for error handling and UI polish.
+
+#### Debugging Errors with AI
+- Used Copilot, Grok and V0 for TypeScript and Solidity errors (e.g., wallet connection, contract deployment).
+- Validated fixes by running tests and checking UI/UX.
+
+#### Validating Correctness and Security
+- Ran Hardhat tests for contracts.
+- Used OpenZeppelin templates for security.
+- UI tested for error handling and transaction feedback.
+
+#### Integrating Layers
+- Frontend calls smart contracts via ethers.js and MetaMask.
+- No backend implemented yet; all logic is client-side and on-chain.
+
+### 5. GitHub Repository Structure
+- Contains:
+  - Smart contracts (`contracts/`)
+  - Frontend (`frontend/`)
+  - Test cases (`test/`)
+  - Deployment scripts (`scripts/`)
+  - Documentation (`PRD.md`, `README.md`)
+- See directory structure above for details.
