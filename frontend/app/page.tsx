@@ -554,13 +554,13 @@ const { toast } = useToast();
                       <div className="text-xs text-muted-foreground">Raised</div>
                     </div>
                     <div>
-                      <div className="text-1xl font text-foreground">₦15</div>
+                      <div className="text-1xl font text-foreground">₦6.4</div>
                       <div className="text-1xl font text-foreground">(0.01 PUSD)</div>
                       <div className="text-xs text-muted-foreground">Per LPT</div>
                     </div>
                     <div>
                       <div className="text-1xl font-bold text-accent">₦800M</div>
-                      <div className="text-1xl font text-foreground">(~500,000 PUSD)</div>
+                      <div className="text-1xl font text-foreground">(~530,000 PUSD)</div>
                       <div className="text-xs text-muted-foreground">Target</div>
                     </div>
                   </div>
@@ -850,7 +850,7 @@ const { toast } = useToast();
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Token Price:</span>
-                      <span className="font-bold">₦15</span>
+                      <span className="font-bold">₦6.4</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Total Supply:</span>
