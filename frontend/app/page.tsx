@@ -233,6 +233,7 @@ const { toast } = useToast();
 
   // Buy Tokens Function
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showInstallMetaMaskModal, setShowInstallMetaMaskModal] = useState(false);
   const buyTokens = async () => {
     if (!idoContract || !pusdAmount) return;
     try {
@@ -320,6 +321,25 @@ const { toast } = useToast();
         </DialogContent>
       </Dialog>
 
+      {/* Install MetaMask Modal */}
+      <Dialog open={showInstallMetaMaskModal} onOpenChange={setShowInstallMetaMaskModal}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>MetaMask Not Detected</DialogTitle>
+            <DialogDescription>
+              Please install MetaMask to continue. You can download it from <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer" className="text-primary underline">metamask.io</a>.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose asChild>
+              <button className="bg-primary text-primary-foreground px-4 py-2 rounded" onClick={() => setShowInstallMetaMaskModal(false)}>
+                OK
+              </button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       <div className="min-h-screen bg-background relative">
         <div className="fixed inset-0 z-0">
           <div
@@ -358,7 +378,11 @@ const { toast } = useToast();
                 </a>
                 <Button variant="outline" size="sm" onClick={connectWallet} disabled={loading}>
                   <Navigation className="w-4 h-4 mr-2" />
-                  {connected ? `${account.slice(0, 6)}...${account.slice(-4)}` : "Connect Wallet"}
+                  {connected
+                    ? `${account.slice(0, 6)}...${account.slice(-4)}`
+                    : typeof window !== "undefined" && typeof window.ethereum === "undefined"
+                      ? "Install MetaMask"
+                      : "Connect Wallet"}
                 </Button>
               </div>
             </div>
@@ -487,7 +511,19 @@ const { toast } = useToast();
                   <Button
                     className="w-full bg-primary hover:bg-primary/90"
                     size="lg"
-                    onClick={connected ? (approved ? buyTokens : approvePUSD) : connectWallet}
+                    onClick={() => {
+                      if (!connected) {
+                        if (typeof window !== "undefined" && typeof window.ethereum === "undefined") {
+                          setShowInstallMetaMaskModal(true);
+                        } else {
+                          connectWallet();
+                        }
+                      } else if (approved) {
+                        buyTokens();
+                      } else {
+                        approvePUSD();
+                      }
+                    }}
                     disabled={loading || (connected && approved && (!pusdAmount || Number(pusdAmount) <= 0))}
                   >
                     {loading ? (
