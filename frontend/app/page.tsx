@@ -905,10 +905,10 @@ const { toast } = useToast();
 
             <Tabs defaultValue="q1" className="max-w-4xl mx-auto">
               <TabsList className="grid w-full grid-cols-4 bg-card/90 backdrop-blur-sm">
-                <TabsTrigger value="q1">Q1 2024</TabsTrigger>
-                <TabsTrigger value="q2">Q2 2024</TabsTrigger>
-                <TabsTrigger value="q3">Q3 2024</TabsTrigger>
-                <TabsTrigger value="q4">Q4 2024</TabsTrigger>
+                <TabsTrigger value="q1">Q1 2026</TabsTrigger>
+                <TabsTrigger value="q2">Q2 2026</TabsTrigger>
+                <TabsTrigger value="q3">Q3 2026</TabsTrigger>
+                <TabsTrigger value="q4">Q4 2026</TabsTrigger>
               </TabsList>
 
               <TabsContent value="q1" className="mt-8">
